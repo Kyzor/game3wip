@@ -4,20 +4,41 @@ public class Physics{
 PVector position;
 PVector velocity;
 PVector acceleration;
-double mass;
+double weight;
+PVector gravity;
+int windowHeight; //temp
+int windowWidth; //temp
+int topSpeed;
 
-public Physics(int xPlayer, int yPlayer, double xSpeed, double ySpeed, double mass){
+public Physics(int xPlayer, int yPlayer, int xSpeed, int ySpeed, double mass){
   position = new PVector(xPlayer, yPlayer);
   velocity = new PVector(xSpeed, ySpeed);
-  acceleration = new PVector(0,0);
-  mass = mass;
+  acceleration = new PVector(2, 4);
+  gravity = new PVector(1, 2);
+  weight = mass;
+  windowHeight = 1080;
+  windowWidth = 1920;
+  topSpeed = 5;
 }
 
-public static Movement(){
-  position += velocity;
+
+public void movement(){
+  velocity.add(acceleration);
+  position.limit(topSpeed);
+  position.add(velocity);
 }
 
-public static Show(){
+public void checkEdge() {
+  if((position.x >= windowWidth) || (position.x < 0)) {
+    position.x = 0;
+  } 
+  
+  if((position.y >= windowHeight) || (position.y < 0)) {
+    position.y = 0;
+  }
+}
+
+public void show(){
   circle(position.x, position.y, 40);
 }
 
