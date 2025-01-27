@@ -14,12 +14,12 @@ int topSpeed;
 public Physics(int xPlayer, int yPlayer, int xSpeed, int ySpeed, float mass){
   position = new PVector(xPlayer, yPlayer);
   velocity = new PVector(xSpeed, ySpeed);
-  acceleration = new PVector(0, 0);
+  acceleration = new PVector(5, 10);
   gravity = new PVector(0, 0.1);
   weight = mass;
   windowHeight = 720;
-  windowWidth = 1080;
-  topSpeed = 1;
+  windowWidth = 1200;
+  topSpeed = 5;
 }
 
 
@@ -28,14 +28,12 @@ public void movement(){
   position.add(velocity);
   acceleration.mult(0);
   velocity.limit(topSpeed);
-  //topSpeed = 8;
   
 }
 
 public void checkEdge() {
   if((position.x >= windowWidth - 20) || (position.x < 0 + 20)) {
     velocity.x *= -1;//mult(-1);
-    
   } 
   
   if((position.y >= windowHeight - 20) || (position.y < 0 + 20)) {
@@ -51,6 +49,7 @@ public void applyForce(PVector force) {
   PVector f = PVector.div(force, weight);
   acceleration.add(f);
 }
+
 
 //Need to add Gravity
 
